@@ -1,0 +1,18 @@
+/* Guest app — mobile-first. Shares the Smart Resort 360 design system. */
+@import '../../../packages/theme/smrt-resort360.css';
+
+/* Tailwind v4 resolves its content sources relative to the CSS entry that
+   imports it, which lives in packages/. Point it back at this app's source. */
+@source './';
+
+/* Frame the mobile canvas when the app is opened on a desktop browser, so a
+   judge on a laptop sees the phone experience rather than a stretched column. */
+@media (min-width: 768px) {
+  #root {
+    max-width: 440px;
+    margin: 0 auto;
+    min-height: 100vh;
+    border-left: 1px solid var(--color-hair);
+    border-right: 1px solid var(--color-hair);
+  }
+}

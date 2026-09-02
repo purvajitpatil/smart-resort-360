@@ -1,0 +1,500 @@
+/* ============================================================================
+   Smart Resort 360 Design System — "Quiet Intelligence"
+   Derived verbatim from stitch_staysmart_hospitality_suite/DESIGN.md
+   Futuristic dark-mode-first operations hub. Sora + Geist. 8px grid.
+   Shared by apps/guest-web and apps/staff-dashboard.
+   ========================================================================== */
+
+@import 'tailwindcss';
+
+@theme {
+  /* --- Surfaces: tonal layering, not shadows ------------------------------ */
+  --color-bg: #0b0a21; /* Level 0 — base canvas */
+  --color-card: #16143a; /* Level 1 — cards / containers */
+  --color-raised: #1e1b4b; /* Level 2 — active / hover / focus */
+  --color-inset: #0e0d26; /* input wells, code, chat canvas */
+
+  /* --- Brand -------------------------------------------------------------- */
+  --color-primary: #4f46e5; /* primary actions */
+  --color-primary-hi: #6366f1; /* hover */
+  --color-primary-dim: #3626ce; /* guest chat bubble / secondary container */
+  --color-tint: #c4c1fb; /* brand text on dark */
+  --color-tint-soft: #8683ba;
+
+  /* --- Ink ---------------------------------------------------------------- */
+  --color-ink: #e5e1e6;
+  --color-ink-muted: #c8c5d0;
+  --color-ink-dim: #928f9a;
+
+  /* --- Semantic: high saturation to pierce the dark ----------------------- */
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+  --color-info: #0ea5e9;
+  --color-tertiary: #f1bc91;
+
+  /* --- Hairlines replace shadows ------------------------------------------ */
+  --color-hair: rgba(255, 255, 255, 0.06);
+  --color-hair-strong: rgba(255, 255, 255, 0.12);
+
+  /* --- Type: Sora (display) + Geist (body/technical) ---------------------- */
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Geist', 'Inter', system-ui, sans-serif;
+
+  /* --- Shape: "technical-soft" -------------------------------------------- */
+  --radius-tech: 4px; /* inputs, small buttons — precise */
+  --radius-card: 12px; /* cards, widgets — approachable */
+
+  /* --- Layout ------------------------------------------------------------- */
+  --spacing-rail: 240px; /* staff sidebar */
+}
+
+/* ============================================================================
+   Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: none;
+}
+
+::selection {
+  background: rgba(79, 70, 229, 0.35);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* Visible keyboard focus everywhere — quality floor, not decoration. */
+:focus-visible {
+  outline: 2px solid var(--color-tint);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* ============================================================================
+   Type scale — DESIGN.md typography block.
+   Mobile scales display/headline-lg down 25% as specified.
+   ========================================================================== */
+
+.t-display {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.t-h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.t-body-lg {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.t-body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.t-body-sm {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Technical data: room numbers, timestamps, status codes, SLA counters. */
+.t-data {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* All-caps micro-label */
+.t-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .t-display {
+    font-size: 36px;
+  }
+  .t-h1 {
+    font-size: 24px;
+  }
+}
+
+/* ============================================================================
+   Surfaces
+   ========================================================================== */
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-hair);
+  border-radius: var(--radius-card);
+}
+
+/* Guest-side card: same tonal base, soft indigo glow for the "premium" read. */
+.card-guest {
+  background: var(--color-card);
+  border: 1px solid var(--color-hair);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 32px -12px rgba(79, 70, 229, 0.45);
+}
+
+/* Glassmorphism — nav bars, modals, mobile quick-action bars. */
+.glass {
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-color: var(--color-hair);
+}
+
+.hair-b {
+  border-bottom: 1px solid var(--color-hair);
+}
+.hair-t {
+  border-top: 1px solid var(--color-hair);
+}
+
+/* ============================================================================
+   Status chips — high-contrast + mandatory 6px dot for accessibility.
+   ========================================================================== */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  flex: none;
+}
+
+.chip-success {
+  color: #4ade80;
+  background: rgba(22, 163, 74, 0.14);
+  border-color: rgba(22, 163, 74, 0.35);
+}
+.chip-warning {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.14);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+.chip-danger {
+  color: #f87171;
+  background: rgba(220, 38, 38, 0.16);
+  border-color: rgba(220, 38, 38, 0.4);
+}
+.chip-info {
+  color: #38bdf8;
+  background: rgba(14, 165, 233, 0.14);
+  border-color: rgba(14, 165, 233, 0.35);
+}
+.chip-neutral {
+  color: var(--color-ink-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-hair);
+}
+.chip-brand {
+  color: var(--color-tint);
+  background: rgba(79, 70, 229, 0.16);
+  border-color: rgba(79, 70, 229, 0.4);
+}
+
+/* Live/pulsing dot for anything actively in motion. */
+.chip-live::before {
+  animation: chip-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 8px currentColor;
+}
+
+@keyframes chip-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ============================================================================
+   Buttons — sharper corners for staff (precision), rounder for guest.
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-tech);
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-hi);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: rgba(79, 70, 229, 0.5);
+  color: var(--color-tint);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(79, 70, 229, 0.12);
+}
+
+.btn-quiet {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--color-hair);
+  color: var(--color-ink-muted);
+}
+.btn-quiet:hover:not(:disabled) {
+  background: var(--color-raised);
+  color: var(--color-ink);
+}
+
+.btn-danger {
+  background: rgba(220, 38, 38, 0.14);
+  border-color: rgba(220, 38, 38, 0.4);
+  color: #f87171;
+}
+.btn-danger:hover:not(:disabled) {
+  background: rgba(220, 38, 38, 0.24);
+}
+
+/* Guest-facing: pill radius, generous target. */
+.btn-round {
+  border-radius: 9999px;
+  padding: 12px 20px;
+}
+
+/* ============================================================================
+   Inputs — dark well, indigo focus ring, technical text.
+   ========================================================================== */
+
+.field {
+  width: 100%;
+  background: var(--color-inset);
+  border: 1px solid var(--color-hair-strong);
+  border-radius: var(--radius-tech);
+  padding: 11px 13px;
+  color: var(--color-ink);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.field::placeholder {
+  color: var(--color-ink-dim);
+}
+
+.field:focus {
+  outline: none;
+  border-color: rgba(79, 70, 229, 0.75);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* ============================================================================
+   Lists — clear hover, 16px vertical padding for comfortable touch targets.
+   ========================================================================== */
+
+.row {
+  padding: 16px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+.row:hover {
+  background: var(--color-raised);
+}
+
+/* ============================================================================
+   Progress — thin 4px indigo track with a glowing cap.
+   ========================================================================== */
+
+.track {
+  height: 4px;
+  width: 100%;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.track > span {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-primary-dim), var(--color-primary-hi));
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.85);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.track-warning > span {
+  background: linear-gradient(90deg, #b45309, var(--color-warning));
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.85);
+}
+.track-danger > span {
+  background: linear-gradient(90deg, #991b1b, #ef4444);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.9);
+}
+
+/* ============================================================================
+   Utilities
+   ========================================================================== */
+
+.no-bar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.thin-bar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+.thin-bar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.thin-bar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+}
+.thin-bar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rise {
+  animation: rise 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: sweep 1.4s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes sweep {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

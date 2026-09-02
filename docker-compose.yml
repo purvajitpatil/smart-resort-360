@@ -1,0 +1,65 @@
+# StaySmart full-stack demo stack. Run from the repo root:
+#   docker compose up --build
+#
+# Postgres + API + both web apps. The API seeds the demo world on first boot.
+# NOTE: the local machine's Docker daemon is currently offline ("docker ps" fails),
+# so this file is authored to spec but NOT runtime-tested here. Validate with:
+#   docker compose config --quiet
+
+name: staysmart
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: staysmart
+      POSTGRES_PASSWORD: staysmart
+      POSTGRES_DB: staysmart
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U staysmart -d staysmart"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DEMO_MODE: "true"
+      DEBUG: "false"
+      DATABASE_URL: postgresql+psycopg://staysmart:staysmart@db:5432/staysmart
+      JWT_SECRET: compose-demo-insecure-secret-0123456789abcdef
+      SEED_DATA_FILE: /app/data/pois/jaipur.json
+      SEED_ON_STARTUP: "true"
+      CORS_ORIGINS: '["http://localhost:5173","http://localhost:5174","http://127.0.0.1:5173","http://127.0.0.1:5174"]'
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  guest-web:
+    build:
+      context: apps/guest-web
+    depends_on:
+      - api
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+  staff-web:
+    build:
+      context: apps/staff-dashboard
+    depends_on:
+      - api
+    ports:
+      - "5174:80"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    driver: local

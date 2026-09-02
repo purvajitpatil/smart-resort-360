@@ -1,0 +1,87 @@
+/* Staff dashboard — desktop-first, max-information density. */
+@import '../../../packages/theme/smrt-resort360.css';
+
+/* Tailwind v4 path back to this app's source. */
+@source './';
+
+/* ---- Desktop sidebar layout -------------------------------------------- */
+.app-layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: var(--spacing-rail) 1fr;
+}
+
+/* ---- Data tables -------------------------------------------------------- */
+table { border-collapse: collapse; width: 100%; }
+th, td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-hair);
+  font-size: 14px;
+  line-height: 1.5;
+}
+th {
+  color: var(--color-ink-dim);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--color-inset);
+}
+tr:hover td { background: var(--color-raised); }
+
+/* ---- Stat cards -------------------------------------------------------- */
+.stat-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-hair);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ---- Semantic text colors (replaces inline var() styles) ------------ */
+.text-dim    { color: var(--color-ink-dim); }
+.text-muted  { color: var(--color-ink-muted); }
+.text-ink    { color: var(--color-ink); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-danger  { color: var(--color-danger); }
+.text-brand   { color: var(--color-tint); }
+
+/* ---- Semantic backgrounds ------------------------------------------- */
+.bg-danger-10 { background: rgba(220, 38, 38, 0.07); }
+
+/* ---- Section heading ------------------------------------------------ */
+.section-hd {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Tab bar -------------------------------------------------------- */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--color-hair);
+  padding-bottom: 0;
+}
+.tab-btn {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink-dim);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+  cursor: pointer;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.tab-btn:hover { color: var(--color-ink-muted); }
+.tab-btn.active {
+  color: var(--color-tint);
+  border-bottom-color: var(--color-tint);
+}

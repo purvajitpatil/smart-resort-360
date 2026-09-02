@@ -1,0 +1,75 @@
+# ──────────────────────────────────────────────────────────────
+# StaySmart — secrets, build artefacts, and local-only state
+# ──────────────────────────────────────────────────────────────
+
+# ── Secrets & credentials ────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.secret
+credentials*
+secrets/
+
+# ── Local databases (seeded on first boot) ────────────────────
+*.db
+*.sqlite
+*.sqlite3
+backend/smrtresort360.db
+backend/staysmart.db
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+htmlcov/
+.coverage
+.coverage.*
+.tox/
+
+# ── Node / Vite / React ──────────────────────────────────────
+node_modules/
+.npm
+.pnp
+.pnp.js
+.yarn/
+*.tsbuildinfo
+
+# ── Build output ─────────────────────────────────────────────
+apps/*/dist/
+apps/*/build/
+apps/*/.vite/
+
+# ── Runtime / logs ───────────────────────────────────────────
+*.log
+backend_stdout.txt
+backend_stderr.txt
+backend/server.log
+backend/uvicorn.log
+backend/api.pid
+
+# ── OS / editor ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Local cache directories ──────────────────────────────────
+.cache/
+.turbo/
+.parcel-cache/
